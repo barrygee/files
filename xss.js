@@ -1,1 +1,1 @@
-<scr<script>ipt>alert('xss')</scr</script>ipt>
+<scr<script>ipt>alert(document.domain)</scr</script>ipt>
