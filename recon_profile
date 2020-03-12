@@ -1,3 +1,9 @@
+# 
+# Used in BugBountyBox Dockerfile
+#
+# Original file from https://github.com/nahamsec/recon_profile/blob/master/.bash_profile
+#
+
 #----- AWS -------
 
 s3ls(){
