@@ -8,40 +8,40 @@
 ##################################################
 
 # /etc/rc.local
-USB_BUFFER_MEMORY = '500'
+USB_BUFFER_MEMORY='500'
 
 # .bash_aliases
-CREATE_AND_CONFIGURE_BASH_ALIASES = true
-APRS_ALIAS = 'executeaprs'
-SDR_ALIAS = 'executesdr'
-LAUNCH_COMMAND = 'launchsequence'
+CREATE_AND_CONFIGURE_BASH_ALIASES=true
+APRS_ALIAS='executeaprs'
+SDR_ALIAS='executesdr'
+LAUNCH_COMMAND='launchsequence'
 
 # RTL_SDR
-INSTALL_RTL_SDR_TOOLS = true
+INSTALL_RTL_SDR_TOOLS=true
 
 # Direwolf (APRS)
-INSTALL_DIREWOLF = true
-CALLSIGN = 'XXXXXX-XX'
-CALLSIGN_PIN = 'XXXXX'
-IGSERVER = 'euro.aprs2.net'
+INSTALL_DIREWOLF=true
+CALLSIGN='XXXXXX-XX'
+CALLSIGN_PIN='XXXXX'
+IGSERVER='euro.aprs2.net'
 
 # HackRF tools
-INSTALL_HACKRF_TOOLS = false
+INSTALL_HACKRF_TOOLS=false
 
 # SoapySDR
-INSTALL_SOAPY_SDR = false
+INSTALL_SOAPY_SDR=false
 
 # RX tools
-INSTALL_RX_TOOLS = false # requires SoapySDR
+INSTALL_RX_TOOLS=false # requires SoapySDR
 
 # Dump1090 (ADS-B)
-INSTALL_DUMP1090 = false
+INSTALL_DUMP1090=false
 
 # RTL_433
-INSTALL_RTL_433 = false
+INSTALL_RTL_433=false
 
 # RTLSDR_Airband
-INSTALL_RTL_SDR_AIRBAND = false
+INSTALL_RTL_SDR_AIRBAND=false
 
 
 
@@ -116,7 +116,7 @@ cd ~/sdr_tools &&
 #                                                #
 ##################################################
 
-if [[ $INSTALL_RTL_SDR_TOOLS ]]; then
+if [ $INSTALL_RTL_SDR_TOOLS ]; then
 
     echo 'Installing RTL_SDR tools'
 
@@ -139,7 +139,7 @@ fi # end - install dependencies
 #                                                #
 ##################################################
 
-if [[ $INSTALL_DIREWOLF ]]; then
+if [ $INSTALL_DIREWOLF ]; then
 
     echo 'Installing Direwolf'
 
@@ -152,7 +152,7 @@ if [[ $INSTALL_DIREWOLF ]]; then
     ​make install-rpi &&
 
     # if /home/pi/.bash_aliases file does not exist
-    if [[ ! -e ~/sdr_tools/direwolf/direwolf.conf ]]; then
+    if [ ! -e ~/sdr_tools/direwolf/direwolf.conf ]; then
 
         ##################################################
         #                                                #
@@ -178,10 +178,10 @@ fi # end - install Direwolf (APRS)
 #                                                #
 ##################################################
 
-if [[ $CREATE_AND_CONFIGURE_BASH_ALIASES && $SDR_ALIAS && $APRS_ALIAS && $INSTALL_RTL_SDR_TOOLS && $INSTALL_DIREWOLF ]]; then
+if [ $CREATE_AND_CONFIGURE_BASH_ALIASES && $SDR_ALIAS && $APRS_ALIAS && $INSTALL_RTL_SDR_TOOLS && $INSTALL_DIREWOLF ]; then
 
     # if /home/pi/.bash_aliases file does not exist
-    if [[ ! -e ~/.bash_aliases ]]; then
+    if [ ! -e ~/.bash_aliases ]; then
 
         echo 'Creating .bash_aliases file'
 
@@ -215,7 +215,7 @@ fi # end - .bash_aliases
 #                                                #
 ##################################################
 
-if [[ $INSTALL_HACKRF_TOOLS ]]; then
+if [ $INSTALL_HACKRF_TOOLS ]; then
 
     echo 'Installing HackRF tools'
 
@@ -238,7 +238,7 @@ fi # end - install HackRF tools
 #                                                #
 ##################################################
 
-if [[ $INSTALL_SOAPY_SDR ]]; then
+if [ $INSTALL_SOAPY_SDR ]; then
     # to do
 
     echo 'Installing SoapySDR'
@@ -253,7 +253,7 @@ fi # end - install SoapySDR
 #                                                #
 ##################################################
 
-if [[ $INSTALL_SOAPY_SDR && $INSTALL_RX_TOOLS ]]; then
+if [ $INSTALL_SOAPY_SDR && $INSTALL_RX_TOOLS ]; then
 
     echo 'Installing RX tools'
 
@@ -281,7 +281,7 @@ fi # end - install RX tools
 #                                                #
 ##################################################
 
-if [[ $INSTALL_DUMP1090 ]]; then
+if [ $INSTALL_DUMP1090 ]; then
 
     echo 'Installing Dump1090'
 
@@ -295,7 +295,7 @@ fi # end - install Dump1090
 #                                                #
 ##################################################
 
-if [[ $INSTALL_RTL_433 ]]; then
+if [ $INSTALL_RTL_433 ]; then
 
     echo 'Installing RTL433'
 
@@ -309,7 +309,7 @@ fi # end - install RTL433
 #                                                #
 ##################################################
 
-if [[ $INSTALL_RTL_SDR_AIRBAND ]]; then
+if [ $INSTALL_RTL_SDR_AIRBAND ]; then
 
     echo 'Installing RTLSDR Airband'
 
