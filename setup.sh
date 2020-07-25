@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 ##################################################
@@ -58,7 +59,7 @@ echo 'Upgrading OS dependencies'
 sudo apt-get -y upgrade &&
 
 echo 'Removing unused OS dependencies'
-sudo apt autoremove
+sudo apt autoremove -y
 
 
 
@@ -88,16 +89,16 @@ sudo chmod 644 /etc/rc.local
 
 echo 'Installing 3rd party dependencies'
 
-sudo apt-get install build-essential cmake pkg-config libusb-1.0-0-dev screen -y &&
-sudo apt-get install pulseaudio libfftw3-dev libtclap-dev librtlsdr-dev pkg-config &&
-sudo apt-get install sox vlc browser-plugin-vlc liblog4cpp5-dev libboost-dev && 
-sudo apt-get install libboost-system-dev libboost-thread-dev &&
-sudo apt-get install libboost-program-options-dev swig socat lame libsox-fmt-all &&
-sudo apt-get install g++ libpython-dev python-numpy libhidapi-dev &&
-sudo apt-get install libasound2-dev airspy libairspy-dev avahi-daemon &&
-sudo apt-get install libavahi-client-dev libmp3lame-dev libshout3-dev &&
-sudo apt-get install libconfig++-dev libraspberrypi-dev libfftw3-dev libpulse-dev
-
+#sudo apt-get install build-essential cmake pkg-config libusb-1.0-0-dev screen -y &&
+#sudo apt-get install pulseaudio libfftw3-dev libtclap-dev librtlsdr-dev pkg-config -y &&
+#sudo apt-get install sox vlc browser-plugin-vlc liblog4cpp5-dev libboost-dev -y && 
+#sudo apt-get install libboost-system-dev libboost-thread-dev -y &&
+#sudo apt-get install libboost-program-options-dev swig socat lame libsox-fmt-all -y &&
+#sudo apt-get install g++ libpython-dev python-numpy libhidapi-dev -y &&
+#sudo apt-get install libasound2-dev airspy libairspy-dev avahi-daemon -y &&
+#sudo apt-get install libavahi-client-dev libmp3lame-dev libshout3-dev -y &&
+#sudo apt-get install libconfig++-dev libraspberrypi-dev libfftw3-dev libpulse-dev -y
+sudo apt-get install build-essential cmake pkg-config libusb-1.0-0-dev screen pulseaudio libfftw3-dev libtclap-dev librtlsdr-dev pkg-config sox vlc browser-plugin-vlc liblog4cpp5-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-program-options-dev swig socat lame libsox-fmt-all g++ libpython-dev python-numpy libhidapi-dev libasound2-dev airspy libairspy-dev avahi-daemon libavahi-client-dev libmp3lame-dev libshout3-dev libconfig++-dev libraspberrypi-dev libfftw3-dev libpulse-dev -y &&
 
 
 ##################################################
