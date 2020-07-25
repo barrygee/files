@@ -85,7 +85,7 @@ sudo chmod 644 /etc/rc.local
 
 echo 'Installing 3rd party dependencies'
 
-sudo apt-get install build-essential cmake pkg-config libusb-1.0-0-dev screen &&
+sudo apt-get install build-essential cmake pkg-config libusb-1.0-0-dev screen -y &&
 sudo apt-get install pulseaudio libfftw3-dev libtclap-dev librtlsdr-dev pkg-config &&
 sudo apt-get install sox vlc browser-plugin-vlc liblog4cpp5-dev libboost-dev && 
 sudo apt-get install libboost-system-dev libboost-thread-dev &&
