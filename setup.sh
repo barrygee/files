@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 ##################################################
@@ -9,40 +8,40 @@
 ##################################################
 
 # /etc/rc.local
-USB_BUFFER_MEMORY='500'
+usb_buffer_memory='500'
 
 # .bash_aliases
-CREATE_AND_CONFIGURE_BASH_ALIASES=true
-APRS_ALIAS='executeaprs'
-SDR_ALIAS='executesdr'
-LAUNCH_COMMAND='launchsequence'
+create_and_configure_bash_aliases=true
+aprs_alias='executeaprs'
+sdr_alias='executesdr'
+launch_command='launchsequence'
 
 # RTL_SDR
-INSTALL_RTL_SDR_TOOLS=true
+install_rtl_sdr_tools=true
 
 # Direwolf (APRS)
-INSTALL_DIREWOLF=true
-CALLSIGN='XXXXXX-XX'
-CALLSIGN_PIN='XXXXX'
-IGSERVER='euro.aprs2.net'
+install_direwolf=true
+callsign='XXXXXX-XX'
+callsign_pin='XXXXX'
+igserver='euro.aprs2.net'
 
 # HackRF tools
-INSTALL_HACKRF_TOOLS=false
+install_hackrf_tools=false
 
 # SoapySDR
-INSTALL_SOAPY_SDR=false
+install_soapy_sdr=false
 
 # RX tools
-INSTALL_RX_TOOLS=false # requires SoapySDR
+install_rx_tools=false # requires SoapySDR
 
 # Dump1090 (ADS-B)
-INSTALL_DUMP1090=false
+install_dump1090=false
 
 # RTL_433
-INSTALL_RTL_433=false
+install_rtl_433=false
 
 # RTLSDR_Airband
-INSTALL_RTL_SDR_AIRBAND=false
+install_rtl_sdr_airband=false
 
 
 
@@ -76,9 +75,10 @@ sudo chmod 777 /etc/rc.local &&
 
 # append to the end of the file
 # allocates sufficiant buffer memory for the usb device (SDR dongle)
-echo "$USB_BUFFER_MEMORY > /sys/module/usbcore/parameters/usbfs_memory_mb" >> /etc/rc.local &&
+echo "$usb_buffer_memory > /sys/module/usbcore/parameters/usbfs_memory_mb" >> /etc/rc.local &&
 
 sudo chmod 644 /etc/rc.local
+
 
 
 ##################################################
@@ -89,16 +89,8 @@ sudo chmod 644 /etc/rc.local
 
 echo 'Installing 3rd party dependencies'
 
-#sudo apt-get install build-essential cmake pkg-config libusb-1.0-0-dev screen -y &&
-#sudo apt-get install pulseaudio libfftw3-dev libtclap-dev librtlsdr-dev pkg-config -y &&
-#sudo apt-get install sox vlc browser-plugin-vlc liblog4cpp5-dev libboost-dev -y && 
-#sudo apt-get install libboost-system-dev libboost-thread-dev -y &&
-#sudo apt-get install libboost-program-options-dev swig socat lame libsox-fmt-all -y &&
-#sudo apt-get install g++ libpython-dev python-numpy libhidapi-dev -y &&
-#sudo apt-get install libasound2-dev airspy libairspy-dev avahi-daemon -y &&
-#sudo apt-get install libavahi-client-dev libmp3lame-dev libshout3-dev -y &&
-#sudo apt-get install libconfig++-dev libraspberrypi-dev libfftw3-dev libpulse-dev -y
 sudo apt-get install build-essential cmake pkg-config libusb-1.0-0-dev screen pulseaudio libfftw3-dev libtclap-dev librtlsdr-dev pkg-config sox vlc browser-plugin-vlc liblog4cpp5-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-program-options-dev swig socat lame libsox-fmt-all g++ libpython-dev python-numpy libhidapi-dev libasound2-dev airspy libairspy-dev avahi-daemon libavahi-client-dev libmp3lame-dev libshout3-dev libconfig++-dev libraspberrypi-dev libfftw3-dev libpulse-dev -y &&
+
 
 
 ##################################################
@@ -120,7 +112,7 @@ cd ~/sdr_tools &&
 #                                                #
 ##################################################
 
-if [ $INSTALL_RTL_SDR_TOOLS ]; then
+if [ $install_rtl_sdr_tools ]; then
 
     echo 'Installing RTL_SDR tools'
 
@@ -143,7 +135,7 @@ fi # end - install dependencies
 #                                                #
 ##################################################
 
-if [ $INSTALL_DIREWOLF ]; then
+if [ $install_direwolf]; then
 
     echo 'Installing Direwolf'
 
@@ -167,9 +159,9 @@ if [ $INSTALL_DIREWOLF ]; then
         echo 'Configuring Direwolf'
 
         # update direwolf configuration
-        sed -i 's/MYCALL NOCALL/MYCALL $CALLSIGN/g' ~/sdr_tools/direwolf/direwolf.conf &&
-        sed -i 's/#IGSERVER noam.aprs2.net/IGSERVER $IGSERVER/g' ~/sdr_tools/direwolf/direwolf.conf &&
-        sed -i 's/#IGLOGIN WB2OSZ-5 123456/IGLOGIN $CALLSIGN $CALLSIGN_PIN/g' ~/sdr_tools/direwolf/direwolf.conf
+        sed -i 's/MYCALL NOCALL/MYCALL $callsign/g' ~/sdr_tools/direwolf/direwolf.conf &&
+        sed -i 's/#IGSERVER noam.aprs2.net/IGSERVER $igserver/g' ~/sdr_tools/direwolf/direwolf.conf &&
+        sed -i 's/#IGLOGIN WB2OSZ-5 123456/IGLOGIN $callsign $callsign_pin/g' ~/sdr_tools/direwolf/direwolf.conf
     fi
 
 fi # end - install Direwolf (APRS)
@@ -182,7 +174,7 @@ fi # end - install Direwolf (APRS)
 #                                                #
 ##################################################
 
-if [ $CREATE_AND_CONFIGURE_BASH_ALIASES && $SDR_ALIAS && $APRS_ALIAS && $INSTALL_RTL_SDR_TOOLS && $INSTALL_DIREWOLF ]; then
+if [ $create_and_configure_bash_aliases && $sdr_alias && $aprs_alias && $install_rtl_sdr_tools && $install_direwolf ]; then
 
     # if /home/pi/.bash_aliases file does not exist
     if [ ! -e ~/.bash_aliases ]; then
@@ -196,9 +188,9 @@ if [ $CREATE_AND_CONFIGURE_BASH_ALIASES && $SDR_ALIAS && $APRS_ALIAS && $INSTALL
         echo 'Adding aliases to .bash_aliases file'
 
         # append content to the end of the .bash_aliases file
-        echo "alias $APRS_ALIAS='screen -d -m -S $APRS_ALIAS sh -c \"rtl_fm -d 1 -f 144.800M | direwolf -c ~/sdr_tools/direwolf/direwolf.conf -r 24000 -D 1 -\"'" >> ~/.bash_aliases &&
-        echo "alias $SDR_ALIAS='screen -d -m -S $SDR_ALIAS sh -c \"rtl_tcp -d 0 -a 10.0.4.2 -s 2048000 -b 100\"'" >> ~/.bash_aliases &&
-        echo "alias launchsequence='$APRS_ALIAS && $SDR_ALIAS'" >> ~/.bash_aliases
+        echo "alias $aprs_alias='screen -d -m -S $aprs_alias sh -c \"rtl_fm -d 1 -f 144.800M | direwolf -c ~/sdr_tools/direwolf/direwolf.conf -r 24000 -D 1 -\"'" >> ~/.bash_aliases &&
+        echo "alias $sdr_alias='screen -d -m -S $sdr_alias sh -c \"rtl_tcp -d 0 -a 10.0.4.2 -s 2048000 -b 100\"'" >> ~/.bash_aliases &&
+        echo "alias launchsequence='$aprs_alias && $sdr_alias'" >> ~/.bash_aliases
 
     fi
 
@@ -219,7 +211,7 @@ fi # end - .bash_aliases
 #                                                #
 ##################################################
 
-if [ $INSTALL_HACKRF_TOOLS ]; then
+if [ $install_hackrf_tools ]; then
 
     echo 'Installing HackRF tools'
 
@@ -242,7 +234,7 @@ fi # end - install HackRF tools
 #                                                #
 ##################################################
 
-if [ $INSTALL_SOAPY_SDR ]; then
+if [ $install_soapy_sdr ]; then
     # to do
 
     echo 'Installing SoapySDR'
@@ -257,7 +249,7 @@ fi # end - install SoapySDR
 #                                                #
 ##################################################
 
-if [ $INSTALL_SOAPY_SDR && $INSTALL_RX_TOOLS ]; then
+if [ $install_soapy_sdr && $install_rx_tools ]; then
 
     echo 'Installing RX tools'
 
@@ -285,7 +277,7 @@ fi # end - install RX tools
 #                                                #
 ##################################################
 
-if [ $INSTALL_DUMP1090 ]; then
+if [ $install_dump1090 ]; then
 
     echo 'Installing Dump1090'
 
@@ -299,7 +291,7 @@ fi # end - install Dump1090
 #                                                #
 ##################################################
 
-if [ $INSTALL_RTL_433 ]; then
+if [ $install_rtl_433 ]; then
 
     echo 'Installing RTL433'
 
@@ -313,7 +305,7 @@ fi # end - install RTL433
 #                                                #
 ##################################################
 
-if [ $INSTALL_RTL_SDR_AIRBAND ]; then
+if [ $install_rtl_sdr_airband ]; then
 
     echo 'Installing RTLSDR Airband'
 
