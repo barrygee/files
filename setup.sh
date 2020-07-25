@@ -101,8 +101,10 @@ sudo apt-get install build-essential cmake pkg-config libusb-1.0-0-dev screen pu
 
 echo 'Creating sdr_tools directory'
 
-​mkdir ~/sdr_tools && 
-cd ~/sdr_tools &&
+cd ~/ &&
+mkdir sdr_tools && 
+chmod 777 sdr_tools &&
+cd ./sdr_tools
 
 
 
