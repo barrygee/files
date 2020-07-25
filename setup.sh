@@ -112,7 +112,7 @@ cd ~/sdr_tools &&
 #                                                #
 ##################################################
 
-if [ $install_rtl_sdr_tools === true ]; then
+if $install_rtl_sdr_tools ; then
 
     echo 'Installing RTL_SDR tools'
 
@@ -135,7 +135,7 @@ fi # end - install dependencies
 #                                                #
 ##################################################
 
-if [ $install_direwolf === true ]; then
+if $install_direwolf ; then
 
     echo 'Installing Direwolf'
 
@@ -174,11 +174,11 @@ fi # end - install Direwolf (APRS)
 #                                                #
 ##################################################
 
-if [ $create_and_configure_bash_aliases === true && 
-     $sdr_alias === true && 
-     $aprs_alias === true && 
-     $install_rtl_sdr_tools === true && 
-     $install_direwolf === true ]; then
+if $create_and_configure_bash_aliases &&
+   $sdr_alias && 
+   $aprs_alias && 
+   $install_rtl_sdr_tools && 
+   $install_direwolf ; then
 
     # if /home/pi/.bash_aliases file does not exist
     if [ ! -e ~/.bash_aliases ]; then
@@ -215,7 +215,7 @@ fi # end - .bash_aliases
 #                                                #
 ##################################################
 
-if [ $install_hackrf_tools === true ]; then
+if $install_hackrf_tools ; then
 
     echo 'Installing HackRF tools'
 
@@ -238,7 +238,7 @@ fi # end - install HackRF tools
 #                                                #
 ##################################################
 
-if [ $install_soapy_sdr === true ]; then
+if $install_soapy_sdr ; then
     # to do
 
     echo 'Installing SoapySDR'
@@ -253,7 +253,7 @@ fi # end - install SoapySDR
 #                                                #
 ##################################################
 
-if [ $install_soapy_sdr === true && $install_rx_tools === true ]; then
+if $install_soapy_sdr && $install_rx_tools ; then
 
     echo 'Installing RX tools'
 
@@ -281,7 +281,7 @@ fi # end - install RX tools
 #                                                #
 ##################################################
 
-if [ $install_dump1090 === true ]; then
+if $install_dump1090 ; then
 
     echo 'Installing Dump1090'
 
@@ -295,7 +295,7 @@ fi # end - install Dump1090
 #                                                #
 ##################################################
 
-if [ $install_rtl_433 === true ]; then
+if $install_rtl_433 ; then
 
     echo 'Installing RTL433'
 
@@ -309,7 +309,7 @@ fi # end - install RTL433
 #                                                #
 ##################################################
 
-if [ $install_rtl_sdr_airband === true ]; then
+if $install_rtl_sdr_airband ; then
 
     echo 'Installing RTLSDR Airband'
 
