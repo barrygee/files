@@ -65,16 +65,16 @@ sudo apt-get upgrade &&
 #                                                #
 ##################################################
 
-# if the /etc/rc.local file exists
-if [ -e /etc/rc.local ]; then
+echo 'Updating /etc/rc.local - allocating USB buffer memory'
 
-    echo 'Updating /etc/rc.local - allocating USB buffer memory'
+# enable write permissions to the /etc/rc.local
+sudo chmod 777 /etc/rc.local &&
 
-    # append to the end of the file
-    # allocates sufficiant buffer memory for the usb device (SDR dongle)
-    echo "$USB_BUFFER_MEMORY > /sys/module/usbcore/parameters/usbfs_memory_mb" >> /etc/rc.local &&
-fi
+# append to the end of the file
+# allocates sufficiant buffer memory for the usb device (SDR dongle)
+echo "$USB_BUFFER_MEMORY > /sys/module/usbcore/parameters/usbfs_memory_mb" >> /etc/rc.local &&
 
+sudo chmod 644 /etc/rc.local
 
 
 ##################################################
