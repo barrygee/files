@@ -52,10 +52,13 @@ INSTALL_RTL_SDR_AIRBAND=false
 ##################################################
 
 echo 'Updating OS dependencies'
-#sudo apt-get update &&
+sudo apt-get update &&
 
 echo 'Upgrading OS dependencies'
-#sudo apt-get -y upgrade &&
+sudo apt-get -y upgrade &&
+
+echo 'Removing unused OS dependencies'
+sudo apt autoremove
 
 
 
