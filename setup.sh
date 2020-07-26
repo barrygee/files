@@ -178,11 +178,7 @@ fi # end - install Direwolf (APRS)
 #                                                #
 ##################################################
 
-if $create_and_configure_bash_aliases &&
-   $sdr_alias && 
-   $aprs_alias && 
-   $install_rtl_sdr_tools && 
-   $install_direwolf ; then
+if $create_and_configure_bash_aliases ; then
 
     # if /home/pi/.bash_aliases file does not exist
     if [ ! -e ~/.bash_aliases ]; then
@@ -198,8 +194,7 @@ if $create_and_configure_bash_aliases &&
         # append content to the end of the .bash_aliases file
         echo "alias $aprs_alias='screen -d -m -S $aprs_alias sh -c \"rtl_fm -d 1 -f 144.800M | direwolf -c ~/sdr_tools/direwolf/direwolf.conf -r 24000 -D 1 -\"'" >> ~/.bash_aliases &&
         echo "alias $sdr_alias='screen -d -m -S $sdr_alias sh -c \"rtl_tcp -d 0 -a 10.0.4.2 -s 2048000 -b 100\"'" >> ~/.bash_aliases &&
-        echo "alias launchsequence='$aprs_alias && $sdr_alias'" >> ~/.bash_aliases
-
+        echo "alias $launch_command=$aprs_alias && $sdr_alias" >> ~/.bash_aliases
     fi
 
     # if the ~/.bash_aliases file exists
