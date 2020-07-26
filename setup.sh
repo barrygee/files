@@ -26,7 +26,7 @@ callsign_pin='XXXXX'
 igserver='euro.aprs2.net'
 
 # HackRF tools
-install_hackrf_tools=false
+install_hackrf_tools=true
 
 # SoapySDR
 install_soapy_sdr=false
