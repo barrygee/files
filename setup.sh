@@ -143,7 +143,7 @@ if $install_direwolf ; then
     echo 'Installing Direwolf'
 
     cd ~/sdr_tools &&
-    git clone git@github.com:wb2osz/direwolf.git &&
+    git clone https://github.com/wb2osz/direwolf.git &&
     chmod 775 ./direwolf
     cd direwolf &&
     make &&
