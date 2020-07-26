@@ -143,13 +143,13 @@ if $install_direwolf ; then
     echo 'Installing Direwolf'
 
     cd ~/sdr_tools &&
-    ​git clone https://www.github.com/wb2osz/direwolf &&
+    git clone git@github.com:wb2osz/direwolf.git &&
     chmod 775 ./direwolf
     cd direwolf &&
-    ​make &&
+    make &&
     sudo make install &&
-    ​make install-conf &&
-    ​make install-rpi &&
+    make install-conf &&
+    make install-rpi &&
 
     # if /home/pi/.bash_aliases file does not exist
     if [ -e ~/sdr_tools/direwolf/direwolf.conf ]; then
