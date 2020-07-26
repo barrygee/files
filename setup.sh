@@ -202,7 +202,6 @@ if $create_and_configure_bash_aliases ; then
         # create ./bash_aliases file within the /home/pi directory
         touch ~/.bash_aliases &&
 
-
         echo 'Adding aliases to .bash_aliases file'
 
         # append content to the end of the .bash_aliases file
