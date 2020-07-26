@@ -26,7 +26,7 @@ callsign_pin='XXXXX'
 igserver='euro.aprs2.net'
 
 # HackRF tools
-install_hackrf_tools=true
+install_hackrf_tools=false
 
 # SoapySDR
 install_soapy_sdr=false
@@ -59,6 +59,20 @@ sudo apt-get -y upgrade &&
 
 echo 'Removing unused OS dependencies'
 sudo apt autoremove -y
+
+
+
+##################################################
+#                                                #
+#               Update raspi-config              #
+#     Automates making changes that would be     #
+#          made by running raspi-config          #
+#                                                #
+##################################################
+
+#echo 'Updating /boot/config.txt'
+
+#sed -i "s/MYCALL N0CALL/MYCALL $callsign/g" /boot/config.txt &&
 
 
 
@@ -188,6 +202,7 @@ if $create_and_configure_bash_aliases ; then
         # create ./bash_aliases file within the /home/pi directory
         touch ~/.bash_aliases &&
 
+
         echo 'Adding aliases to .bash_aliases file'
 
         # append content to the end of the .bash_aliases file
@@ -222,7 +237,8 @@ if $install_hackrf_tools ; then
     cd hackrf/host &&
     mkdir build && 
     cd build &&
-    cmake ../ -DINSTALL_UDEV_RULES=ON make &&
+    cmake ../ -DINSTALL_UDEV_RULES=ON 
+    make &&
     sudo make install &&
     sudo ldconfig
 
