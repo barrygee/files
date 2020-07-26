@@ -162,7 +162,6 @@ if $install_direwolf ; then
 
         echo 'Configuring Direwolf'
 
-        // variables below are not read, $variable name is inserted instead
         # update direwolf configuration
         sed -i "s/MYCALL N0CALL/MYCALL $callsign/g" ~/sdr_tools/direwolf/direwolf.conf &&
         sed -i "s/#IGSERVER noam.aprs2.net/IGSERVER $igserver/g" ~/sdr_tools/direwolf/direwolf.conf &&
