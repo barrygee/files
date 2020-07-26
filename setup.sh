@@ -144,6 +144,7 @@ if $install_direwolf ; then
 
     cd ~/sdr_tools &&
     ​git clone https://www.github.com/wb2osz/direwolf &&
+    chmod 775 ./direwolf
     cd direwolf &&
     ​make &&
     sudo make install &&
@@ -151,7 +152,7 @@ if $install_direwolf ; then
     ​make install-rpi &&
 
     # if /home/pi/.bash_aliases file does not exist
-    if [ ! -e ~/sdr_tools/direwolf/direwolf.conf ]; then
+    if [ -e ~/sdr_tools/direwolf/direwolf.conf ]; then
 
         ##################################################
         #                                                #
@@ -161,10 +162,11 @@ if $install_direwolf ; then
 
         echo 'Configuring Direwolf'
 
+        // variables below are not read, $variable name is inserted instead
         # update direwolf configuration
-        sed -i 's/MYCALL NOCALL/MYCALL $callsign/g' ~/sdr_tools/direwolf/direwolf.conf &&
-        sed -i 's/#IGSERVER noam.aprs2.net/IGSERVER $igserver/g' ~/sdr_tools/direwolf/direwolf.conf &&
-        sed -i 's/#IGLOGIN WB2OSZ-5 123456/IGLOGIN $callsign $callsign_pin/g' ~/sdr_tools/direwolf/direwolf.conf
+        sed -i "s/MYCALL N0CALL/MYCALL $callsign/g" ~/sdr_tools/direwolf/direwolf.conf &&
+        sed -i "s/#IGSERVER noam.aprs2.net/IGSERVER $igserver/g" ~/sdr_tools/direwolf/direwolf.conf &&
+        sed -i "s/#IGLOGIN WB2OSZ-5 123456/IGLOGIN $callsign $callsign_pin/g" ~/sdr_tools/direwolf/direwolf.conf
     fi
 
 fi # end - install Direwolf (APRS)
