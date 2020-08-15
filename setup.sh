@@ -300,7 +300,7 @@ if $create_and_configure_bash_aliases ; then
         if $install_dump1090 ; then
             # ref: --device flag
             # https://github.com/antirez/dump1090/issues/129
-            echo "alias $dump1090_alias='screen ./sdr_tools/dump1090 --enable-agc --aggressive --interactive --net --net-http-port $dump1090_port'" >> ~/.bash_aliases
+            echo "alias $adsb_alias='screen ./sdr_tools/dump1090 --enable-agc --aggressive --interactive --net --net-http-port $dump1090_port'" >> ~/.bash_aliases
         fi
     fi
 
