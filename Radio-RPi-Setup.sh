@@ -178,70 +178,63 @@ fi # end - install dependencies
 
 if $install_direwolf ; then
 
-    echo 'Installing Direwolf'
+echo 'Installing Direwolf'
 
-    cd ~/sdr_tools &&
-    git clone https://github.com/wb2osz/direwolf.git &&
-    chmod 775 ./direwolf
-    cd direwolf &&
-    make &&
-    sudo make install &&
-    make install-conf &&
-    make install-rpi &&
+cd ~/sdr_tools &&
+git clone https://github.com/wb2osz/direwolf.git &&
+chmod 775 ./direwolf
+cd direwolf &&
+make &&
+sudo make install &&
+make install-conf &&
+make install-rpi &&
 
-    #########################################
-    #                                       #
-    #         update configuration          #
-    #                                       #
-    #########################################
+#########################################
+#                                       #
+#         update configuration          #
+#                                       #
+#########################################
 
-    # sdr.conf is used if the APRS station is receive only so does not rebroadcast APRS packets over RF
-    # does not beacon and works as an iGate
-    if [ -e ~/sdr_tools/direwolf/sdr.conf ]; then
+# sdr.conf is used if the APRS station is receive only so does not rebroadcast APRS packets over RF
+# does not beacon and works as an iGate
+echo 'Configuring Direwolf sdr.conf'
 
-        echo 'Configuring Direwolf sdr.conf'
+# update sdr.conf configuration
+sed -i "s/MYCALL xxx/MYCALL $callsign/g" ~/sdr_tools/direwolf/sdr.conf &&
+sed -i "s/IGSERVER noam.aprs2.net/IGSERVER $igserver/g" ~/sdr_tools/direwolf/sdr.conf &&
+sed -i "s/IGLOGIN xxx 123456/IGLOGIN $callsign $callsign_pin/g" ~/sdr_tools/direwolf/sdr.conf &&
 
-        # update sdr.conf configuration
-        sed -i "s/MYCALL xxx/MYCALL $callsign/g" ~/sdr_tools/direwolf/sdr.conf &&
-        sed -i "s/IGSERVER noam.aprs2.net/IGSERVER $igserver/g" ~/sdr_tools/direwolf/sdr.conf &&
-        sed -i "s/IGLOGIN xxx 123456/IGLOGIN $callsign $callsign_pin/g" ~/sdr_tools/direwolf/sdr.conf &&
+# requires updating only if sdr.conf | RX only is being used      
+echo 'Updating dw-start.sh'
 
-        # requires updating only if sdr.conf | RX only is being used
-        if [ -e ~/sdr_tools/direwolf/dw-start.sh ]; then
+sed -i 's/DWCMD="$DIREWOLF -a 100"/#DWCMD="$DIREWOLF -a 100"/g' ~/sdr_tools/direwolf/dw-start.sh &&
+sed -i "s/#DWCMD=\"bash -c 'rtl_fm -f 144.39M - | direwolf -c sdr.conf -r 24000 -D 1 -'\"/DWCMD=\"bash -c 'rtl_fm -f 144.80M - | direwolf -c sdr.conf -r 24000 -D 1 -'\""
+        
+    
 
-            echo 'Updating dw-start.sh'
+# direwolf.conf is used if the APRS station both receives and transmits APRS packets over RF,
+# beacons and works as an iGate
+echo 'Configuring Direwolf direwolf.conf'
 
-            sed -i 's/DWCMD="$DIREWOLF -a 100"/#DWCMD="$DIREWOLF -a 100"/g' ~/sdr_tools/direwolf/dw-start.sh &&
-            sed -i "s/#DWCMD=\"bash -c 'rtl_fm -f 144.39M - | direwolf -c sdr.conf -r 24000 -D 1 -'\"/DWCMD=\"bash -c 'rtl_fm -f 144.80M - | direwolf -c sdr.conf -r 24000 -D 1 -'\""
-        fi
-    fi
-
-
-    # direwolf.conf is used if the APRS station both receives and transmits APRS packets over RF,
-    # beacons and works as an iGate
-    if [ -e ~/sdr_tools/direwolf/direwolf.conf ]; then
-
-        echo 'Configuring Direwolf direwolf.conf'
-
-        # update direwolf configuration
-        sed -i "s/MYCALL N0CALL/MYCALL $callsign/g" ~/sdr_tools/direwolf/direwolf.conf &&
-        sed -i "s/#IGSERVER noam.aprs2.net/IGSERVER $igserver/g" ~/sdr_tools/direwolf/direwolf.conf &&
-        sed -i "s/#IGLOGIN WB2OSZ-5 123456/IGLOGIN $callsign $callsign_pin/g" ~/sdr_tools/direwolf/direwolf.conf &&
-        sed -i "s/#PBEACON sendto=IG delay=0:30 every=60:00 symbol=\"igate\" overlay=R lat=42^37.14N long=071^20.83W/PBEACON sendto=IG delay=0:30 every=60:00 symbol=\"igate\" overlay=R lat=$latitude long=$longitude/g" ~/sdr_tools/direwolf/direwolf.conf
-    fi
+# update direwolf configuration
+sed -i "s/MYCALL N0CALL/MYCALL $callsign/g" ~/sdr_tools/direwolf/direwolf.conf &&
+sed -i "s/#IGSERVER noam.aprs2.net/IGSERVER $igserver/g" ~/sdr_tools/direwolf/direwolf.conf &&
+sed -i "s/#IGLOGIN WB2OSZ-5 123456/IGLOGIN $callsign $callsign_pin/g" ~/sdr_tools/direwolf/direwolf.conf &&
+sed -i "s/#PBEACON sendto=IG delay=0:30 every=60:00 symbol=\"igate\" overlay=R lat=42^37.14N long=071^20.83W/PBEACON sendto=IG delay=0:30 every=60:00 symbol=\"igate\" overlay=R lat=$latitude long=$longitude/g" ~/sdr_tools/direwolf/direwolf.conf
+    
 
 
-    echo 'Deleting unneeded Direwolf files'
+echo 'Deleting unneeded Direwolf files'
 
-    cd ~/ &&
-    rm dw-start.sh &&
-    rm sdr.conf &&
-    rm direwolf.conf &&
-    rm telem-balloon.conf &&
-    rm telem-m0xer-3.txt &&
-    rm telem-volts.conf
+cd ~/ &&
+rm dw-start.sh &&
+rm sdr.conf &&
+rm direwolf.conf &&
+rm telem-balloon.conf &&
+rm telem-m0xer-3.txt &&
+rm telem-volts.conf
 
-fi # end - install Direwolf (APRS)
+# end - install Direwolf (APRS)
 
 
 
@@ -258,7 +251,8 @@ if $install_dump1090 ; then
     cd ~/sdr_tools &&
     git clone https://github.com/antirez/dump1090.git &&
     cd dump1090 &&
-    echo 'Updating Dump1090 Makefile' &&
+    echo 'Updating Dump1090 Makefile'
+    chmod 777 ~/sdr_tools/dump1090/Makefile &&
     sed -i "s/LDLIBS+=$(shell pkg-config --libs librtlsdr) -lpthread -lm/LDLIBS+=-lrtlsdr -L -lpthread -lm/g" ~/sdr_tools/dump1090/Makefile &&
     make
 
