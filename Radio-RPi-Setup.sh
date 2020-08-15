@@ -92,6 +92,9 @@ echo "pi:$password" | sudo chpasswd
 echo 'Setting Resolution to DMT Mode 82 1920x1080 60Hz 16:9'
 sudo raspi-config nonint do_resolution 2 $resolution
 
+echo 'Exapnding the file system'
+sudo raspi-config nonint do_expand_rootfs
+
 echo 'Setting VNC'
 sudo raspi-config nonint do_vnc $enable_vnc
 
