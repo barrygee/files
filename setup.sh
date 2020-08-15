@@ -213,7 +213,7 @@ if $install_direwolf ; then
             echo 'Updating dw-start.sh'
 
             sed -i 's/DWCMD="$DIREWOLF -a 100"/#DWCMD="$DIREWOLF -a 100"/g' ~/sdr_tools/direwolf/dw-start.sh &&
-            sed -i "s/#DWCMD=\"bash -c 'rtl_fm -f 144.39M - | direwolf -c sdr.conf -r 24000 -D 1 -'\"/DWCMD=\"bash -c 'rtl_fm -f 144.80M - | direwolf -c sdr.conf -r 24000 -D 1 -'\"" &&
+            sed -i "s/#DWCMD=\"bash -c 'rtl_fm -f 144.39M - | direwolf -c sdr.conf -r 24000 -D 1 -'\"/DWCMD=\"bash -c 'rtl_fm -f 144.80M - | direwolf -c sdr.conf -r 24000 -D 1 -'\""
         fi
     fi
 
@@ -228,7 +228,7 @@ if $install_direwolf ; then
         sed -i "s/MYCALL N0CALL/MYCALL $callsign/g" ~/sdr_tools/direwolf/direwolf.conf &&
         sed -i "s/#IGSERVER noam.aprs2.net/IGSERVER $igserver/g" ~/sdr_tools/direwolf/direwolf.conf &&
         sed -i "s/#IGLOGIN WB2OSZ-5 123456/IGLOGIN $callsign $callsign_pin/g" ~/sdr_tools/direwolf/direwolf.conf &&
-        sed -i "s/#PBEACON sendto=IG delay=0:30 every=60:00 symbol=\"igate\" overlay=R lat=42^37.14N long=071^20.83W/PBEACON sendto=IG delay=0:30 every=60:00 symbol=\"igate\" overlay=R lat=$latitude long=$longitude/g" ~/sdr_tools/direwolf/direwolf.conf &&
+        sed -i "s/#PBEACON sendto=IG delay=0:30 every=60:00 symbol=\"igate\" overlay=R lat=42^37.14N long=071^20.83W/PBEACON sendto=IG delay=0:30 every=60:00 symbol=\"igate\" overlay=R lat=$latitude long=$longitude/g" ~/sdr_tools/direwolf/direwolf.conf
     fi
 
 
@@ -239,7 +239,7 @@ if $install_direwolf ; then
     rm sdr.conf &&
     rm telem-balloon.conf &&
     rm telem-m0xer-3.txt &&
-    rm telem-volts.conf &&
+    rm telem-volts.conf
 
 fi # end - install Direwolf (APRS)
 
@@ -286,11 +286,11 @@ if $create_and_configure_bash_aliases ; then
 
         # append content to the end of the .bash_aliases file
         if $install_direwolf ; then
-            echo "alias $aprs_alias='screen -d -m -S $aprs_alias sh -c \"rtl_fm -d 1 -f 144.800M | direwolf -c ~/sdr_tools/direwolf/$direwolf_conf_file -r 24000 -D 1 -\"'" >> ~/.bash_aliases &&
+            echo "alias $aprs_alias='screen -d -m -S $aprs_alias sh -c \"rtl_fm -d 1 -f 144.800M | direwolf -c ~/sdr_tools/direwolf/$direwolf_conf_file -r 24000 -D 1 -\"'" >> ~/.bash_aliases
         fi
 
         if $install_rtl_sdr_tools ; then
-            echo "alias $sdr_alias='screen -d -m -S $sdr_alias sh -c \"rtl_tcp -d 0 -a $rpi_ip_address -s $rtl_tcp_sample_rate -b 100\"'" >> ~/.bash_aliases &&
+            echo "alias $sdr_alias='screen -d -m -S $sdr_alias sh -c \"rtl_tcp -d 0 -a $rpi_ip_address -s $rtl_tcp_sample_rate -b 100\"'" >> ~/.bash_aliases
 
             # TO TEST
             # Stream audio from rtl_fm to http ogg audio
@@ -300,7 +300,7 @@ if $create_and_configure_bash_aliases ; then
         if $install_dump1090 ; then
             # ref: --device flag
             # https://github.com/antirez/dump1090/issues/129
-            echo "alias $dump1090_alias='screen ./dump1090 --enable-agc --aggressive --interactive --net --net-http-port $dump1090_port'" >> ~/.bash_aliases &&
+            echo "alias $dump1090_alias='screen ./dump1090 --enable-agc --aggressive --interactive --net --net-http-port $dump1090_port'" >> ~/.bash_aliases
         fi
     fi
 
