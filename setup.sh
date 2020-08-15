@@ -371,3 +371,14 @@ if $install_rtl_sdr_airband ; then
     echo 'Installing RTLSDR Airband'
 
 fi # end - install RTL_SDR_Airband
+
+
+
+##################################################
+#                                                #
+#                 Reboot the RPi                 #
+#                                                #
+##################################################
+
+sudo reboot now
+
