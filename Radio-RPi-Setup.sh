@@ -96,14 +96,14 @@ if [ "$raspi_config_updated" = false ]; then
     echo 'Setting Resolution to DMT Mode 82 1920x1080 60Hz 16:9'
     sudo raspi-config nonint do_resolution 2 $resolution
 
-    echo 'Exapnding the file system'
+    echo 'Expanding the file system'
     sudo raspi-config nonint do_expand_rootfs
 
     echo 'Setting VNC'
     sudo raspi-config nonint do_vnc $enable_vnc
 
-    echo 'Updating setup_sdr_pi.sh - raspi_config_updated variable'
-    sed -i "s/raspi_config_updated=false/raspi_config_updated=true/g" ~/setup_sdr_pi.sh
+    echo 'Updating Radio-RPi-Setup.sh - raspi_config_updated variable'
+    sed -i "s/raspi_config_updated=false/raspi_config_updated=true/g" ~/Radio-RPi-Setup.sh
 
     echo 'Rebooting RPi'
     sudo reboot now
