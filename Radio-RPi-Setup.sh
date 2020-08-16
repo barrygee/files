@@ -7,9 +7,6 @@
 #                                                #
 ##################################################
 
-# Setup 
-raspi_config_updated=false
-
 # Host
 rpi_ip_address='XX.X.X.X'
 latitude='XX.XXX'
@@ -57,6 +54,8 @@ install_rtl_433=false
 # RTLSDR_Airband
 install_rtl_sdr_airband=false
 
+# Used during setup only - do not manually update
+raspi_config_updated=false
 
 
 ##################################################
@@ -267,8 +266,7 @@ else
         git clone https://github.com/antirez/dump1090.git &&
         cd dump1090 &&
         echo 'Updating Dump1090 Makefile'
-        chmod 777 ~/sdr_tools/dump1090/Makefile &&
-        sed -i 's/LDLIBS+=\$(shell pkg-config --libs librtlsdr) -lpthread -lm/LDLIBS+=-lrtlsdr -L -lpthread -lm/g' ~/sdr_tools/dump1090/Makefile &&
+        chmod 775 ~/sdr_tools/dump1090/ -R &&
         make
 
     fi # end - install Dump1090
@@ -309,7 +307,7 @@ else
             if $install_dump1090 ; then
                 # ref: --device flag
                 # https://github.com/antirez/dump1090/issues/129
-                echo "alias $adsb_alias='screen ./sdr_tools/dump1090 --enable-agc --aggressive --interactive --net --net-http-port $dump1090_port'" >> ~/.bash_aliases
+                echo "alias $adsb_alias='screen ./sdr_tools/dump1090/dump1090 --enable-agc --aggressive --interactive --net --net-http-port $dump1090_port'" >> ~/.bash_aliases
             fi
         fi
 
