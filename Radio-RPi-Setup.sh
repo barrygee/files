@@ -92,6 +92,9 @@ if [ "$raspi_config_updated" = false ]; then
     echo 'Setting new password for pi user'
     echo "pi:$password" | sudo chpasswd
 
+    echo 'Setting WiFi country to GB'
+    sudo raspi-config nonint do_wifi_country GB
+
     echo 'Setting Resolution to DMT Mode 82 1920x1080 60Hz 16:9'
     sudo raspi-config nonint do_resolution 2 $resolution
 
@@ -293,11 +296,11 @@ else
 
             # append content to the end of the .bash_aliases file
             if $install_direwolf ; then
-                echo "alias $aprs_alias='screen -d -m -S $aprs_alias sh -c \"rtl_fm -d 1 -f 144.800M | direwolf -c ~/sdr_tools/direwolf/$direwolf_conf_file -r 24000 -D 1 -\"'" >> ~/.bash_aliases
+                echo "alias $aprs_alias='screen -d -m -S $aprs_alias sh -c \"rtl_fm -d 0 -f 144.800M | direwolf -c ~/sdr_tools/direwolf/$direwolf_conf_file -r 24000 -D 1 -\"'" >> ~/.bash_aliases
             fi
 
             if $install_rtl_sdr_tools ; then
-                echo "alias $sdr_alias='screen -d -m -S $sdr_alias sh -c \"rtl_tcp -d 0 -a $rpi_ip_address -s $rtl_tcp_sample_rate -b 100\"'" >> ~/.bash_aliases
+                echo "alias $sdr_alias='screen -d -m -S $sdr_alias sh -c \"rtl_tcp -d 1 -a $rpi_ip_address -s $rtl_tcp_sample_rate -b 100\"'" >> ~/.bash_aliases
 
                 # TO TEST
                 # Stream audio from rtl_fm to http ogg audio
@@ -307,8 +310,10 @@ else
             if $install_dump1090 ; then
                 # ref: --device flag
                 # https://github.com/antirez/dump1090/issues/129
-                echo "alias $adsb_alias='screen ./sdr_tools/dump1090/dump1090 --enable-agc --aggressive --interactive --net --net-http-port $dump1090_port'" >> ~/.bash_aliases
+                echo "alias $adsb_alias='screen ./sdr_tools/dump1090/dump1090 --device-index 2 --enable-agc --aggressive --interactive --net --net-http-port $dump1090_port'" >> ~/.bash_aliases
             fi
+
+            $startaprs && C-a t screen 
         fi
 
         # if the ~/.bash_aliases file exists
