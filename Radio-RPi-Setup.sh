@@ -26,6 +26,7 @@ create_and_configure_bash_aliases=true
 aprs_alias='startaprs'
 sdr_alias='startsdr'
 adsb_alias='startadsb'
+launchsdr='launchsdr'
 
 # RTL_SDR
 install_rtl_sdr_tools=true
@@ -145,6 +146,36 @@ else
     echo 'Installing 3rd party dependencies'
 
     sudo apt-get install build-essential cmake pkg-config libusb-1.0-0-dev screen pulseaudio libfftw3-dev libtclap-dev librtlsdr-dev pkg-config sox vlc browser-plugin-vlc liblog4cpp5-dev libboost-dev libboost-system-dev libboost-thread-dev libboost-program-options-dev swig socat lame libsox-fmt-all g++ libpython-dev python-numpy libhidapi-dev libasound2-dev airspy libairspy-dev avahi-daemon libavahi-client-dev libmp3lame-dev libshout3-dev libconfig++-dev libraspberrypi-dev libfftw3-dev libpulse-dev -y &&
+
+
+
+    ##################################################
+    #                                                #
+    #        create .screenrc-sdr config file        #
+    #                                                #
+    ##################################################
+
+    echo 'Creating .screenrc-sdr'
+
+    cd ~/ &&
+    touch .screenrc-sdr &&
+    chmod 777 .screenrc-sdr &&
+
+    echo 'Adding content to .screenrc-sdr'
+    
+    echo "startup_message off" >> .screenrc-sdr
+    echo "split -v" >> .screenrc-sdr
+    echo "screen bash" >> .screenrc-sdr
+    echo "focus right" >> .screenrc-sdr
+    echo "split" >> .screenrc-sdr
+    echo "screen bash -ic startsdr" >> .screenrc-sdr
+    echo "focus down" >> .screenrc-sdr
+    echo "focus right" >> .screenrc-sdr
+    echo "screen bash -ic startaprs" >> .screenrc-sdr
+    echo "focus left" >> .screenrc-sdr
+    echo "split" >> .screenrc-sdr
+    echo "focus down" >> .screenrc-sdr
+    echo "screen bash -ic startadsb" >> .screenrc-sdr
 
 
 
@@ -304,7 +335,7 @@ else
 
                 # TO TEST
                 # Stream audio from rtl_fm to http ogg audio
-                # rtl_fm -g50 -f 118.37M -M am -s 180k -E deemp | sox -traw -r180k -es -b16 -c1 -V1 - -t flac - | cvlc - --sout ‘#standard{access=http,mux=ogg,dst=localhost:8080/audio.ogg}’
+                # rtl_fm -d 2 -g50 -f 118.37M -M am -s 180k -E deemp | sox -traw -r180k -es -b16 -c1 -V1 - -t flac - | cvlc - --sout ‘#standard{access=http,mux=ogg,dst=localhost:8080/audio.ogg}’
             fi
 
             if $install_dump1090 ; then
@@ -313,7 +344,9 @@ else
                 echo "alias $adsb_alias='screen ./sdr_tools/dump1090/dump1090 --device-index 2 --enable-agc --aggressive --interactive --net --net-http-port $dump1090_port'" >> ~/.bash_aliases
             fi
 
-            $startaprs && C-a t screen 
+            echo "alias $launchsdr='screen -c .screenrc-sdr'"
+
+            echo "alias rpitemp='vcgencmd measure_temp'"
         fi
 
         # if the ~/.bash_aliases file exists
