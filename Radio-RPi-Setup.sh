@@ -126,7 +126,7 @@ else
 
     sudo chmod 777 ~/.bashrc &&
 
-    sudo sh -c "echo $usb_buffer_memory > /sys/module/usbcore/parameters/usbfs_memory_mb" >> ~/.bashrc
+    echo 'sudo sh -c "echo $usb_buffer_memory > /sys/module/usbcore/parameters/usbfs_memory_mb"' >> ~/.bashrc
 
 
 
