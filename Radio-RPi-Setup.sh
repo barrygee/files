@@ -30,7 +30,7 @@ launchsdr='launchsdr' # uses 'screen' config for output layout
 
 # RTL_SDR
 install_rtl_sdr_tools=true
-rtl_tcp_sample_rate='2048000'
+rtl_tcp_sample_rate='3200000'
 
 # Direwolf (APRS)
 install_direwolf=true
@@ -44,7 +44,7 @@ install_dump1090=true
 dump1090_port=9999
 
 # SoapySDR
-install_soapy_sdr=false
+install_soapy_sdr=true
 
 # RX tools
 install_rx_tools=false # requires SoapySDR
@@ -123,7 +123,7 @@ else
 
     sudo chmod 777 ~/.bashrc &&
 
-    echo 'sudo sh -c "echo 1000 > /sys/module/usbcore/parameters/usbfs_memory_mb"' >> ~/.bashrc
+    echo 'sudo sh -c "echo 3200 > /sys/module/usbcore/parameters/usbfs_memory_mb"' >> ~/.bashrc
 
 
 
@@ -158,7 +158,7 @@ else
     echo "split -v" >> .screenrc-sdr
     echo "split" >> .screenrc-sdr
     echo "focus" >> .screenrc-sdr
-    echo "screen bash -ic 'rtl_tcp -d 1 -a $rpi_ip_address -s 2048000 -b 100'" >> .screenrc-sdr
+    echo "screen bash -ic 'rtl_tcp -d 1 -a $rpi_ip_address -s 3200000 -b 100'" >> .screenrc-sdr
     echo "title 'SDR available for remote connection'" >> .screenrc-sdr
     echo "focus" >> .screenrc-sdr
     echo "screen ./sdr_tools/dump1090/dump1090 --device-index 0 --enable-agc --aggressive --interactive --net --net-http-port 9999" >> .screenrc-sdr
